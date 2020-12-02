@@ -1,0 +1,58 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="refresh" content="10")
+    title Rapport de tests
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous')
+    style.
+      *{box-sizing:border-box}body,html{margin:0;padding:0;font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:16px}.navbar{background-color:#696969;color:#fff}.header{margin-bottom:25px;position:relative;display:flex;color:#fff;background-color:#3573b0}.header::after{content:"";clear:both;display:table}.logo{flex:0}.summary{flex:1;font-size:14px;padding:8px 12px;vertical-align:top}.summary-count{font-weight:700;font-size:24px}.main{display:flex;width:100%;height:860px;padding-left:10px;padding-right:10px}.charts{margin:0;padding:0;height:100%;min-height:auto}.tests{width:100%;height:100%;padding-right:10px;min-height:auto}.tests-table{width:100%;text-align:center;border-collapse:collapse}.tests-table th{border-bottom:1px solid #bce2ed;padding-top:10px;padding-bottom:10px}.tests-table td{padding-top:5px;padding-bottom:5px}.tests-table tr td:not(:last-child),.tests-table tr th:not(:last-child){border-right:4px solid #bce2ed}.tests-table tbody tr:not(:last-child){border-bottom:2px solid #f5f3f6}.tests-table tr td:last-child{padding-left:10px;text-align:left}.tests-table tr td:last-child>i{font-style:normal;margin-right:5px;color:#3573b0;width:18px;display:inline-block;text-align:center}.tests-table tr td:nth-child(3){padding-left:10px;text-align:left}.tests-table tr td:nth-child(3)>i{font-style:normal;margin-right:5px;width:18px;display:inline-block;text-align:center}.pie-chart{background:radial-gradient(circle closest-side,#fff 0,#fff 37.6%,transparent 37.6%,transparent 80%,#fff 0),conic-gradient(#{chart_passed} #{chart_failed} #{chart_skipped});position:relative;width:500px;min-height:300px;margin:0}.pie-chart h2{position:absolute;margin:1rem}.pie-chart figcaption{position:absolute;bottom:1em;right:1em;font-size:smaller;text-align:right}.pie-chart span:after{display:inline-block;content:"";width:.8em;height:.8em;margin-left:.4em;height:.8em;border-radius:.2em;background:currentColor}
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+                h1 Rapport des tests automatisatisés
+                h2 #{lastrun_date}
+    div.container.theme-showcase
+        .row
+            .col-md-6
+                .row.charts
+                    figure.pie-chart
+                        figcaption
+                            | Passed #{pass_percent}% 
+                            span(style="color:#2cd860")
+                            br
+                            | Failed #{fail_percent}% 
+                            span(style="color:#de3f3f")
+                            br 
+                            | Skipped #{skip_percent}% 
+                            span(style="color:#fdb563")
+            .col-md-6
+                .summary
+                    div  Exécution des tests :
+                        ul
+                            li Date / heure début : #{daterun_start}
+                            li Date / heure fin : #{daterun_end}
+                    div  OS : #{opsys}
+                    div  Nombre de cas de tests : #{run_suites}
+                    div  #{run_numerator} étapes de tests dont :
+                    ul
+                        li.Failed #{fail_numerator} échecs
+                        li.Passed #{pass_numerator} succès
+                        li.Skipped #{skip_numerator} ignorés
+        hr
+        .row
+            h2 Liste des tests
+            .col-md-12
+                div#feature-overview
+                    .tests
+                        table.tests-table
+                            thead
+                                tr
+                                    th Statut
+                                    th Nom
+                            tbody
+                                each test in tests
+                                    tr
+                                        td=test.uuid
+                                        td=test.file
