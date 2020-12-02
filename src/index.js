@@ -6,7 +6,7 @@ var jsonfile = require('../test/report.json')
 //var jsFunctionString = pug.compileFileClient('./templates/file.pug', {name: "fancyTemplateFun"});
 
 // Compile a function
-var fn = pug.compileFile('../views/file.pug');
+var fn = pug.compileFile('./views/file.pug');
 
 // Render the function
 var html = fn({ 
@@ -29,4 +29,4 @@ var html = fn({
 })
 
 // Maybe you want to compile all of your templates to a templates.js file and serve it to the client
-fs.writeFileSync("../html/templates.html", html);
+fs.writeFileSync("./html/templates.html", html);
