@@ -1,0 +1,345 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset="utf-8")
+    title Rapport de tests
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous')
+    style.
+      *, :after, :before {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            font-family: Segoe UI,Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            background-color: #FEFEFE;
+        }
+        .navbar {
+            background-color: #696969;
+            color: white;
+        }
+        .header {
+            margin-bottom: 25px;
+            position: relative;
+            display: flex;
+            color: white;
+            background-color: #3573B0;
+        }
+        .header::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        .logo {
+            flex: 0;
+        }
+        .summary {
+            flex: 1;
+            font-size: 16px;
+            padding: 8px 12px;
+            vertical-align: top;
+        }
+        .summary-count {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .main {
+            display: flex;
+            width: 100%;
+            height: 860px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .charts {
+            margin:0px;
+            padding:0px;
+            height: 100%;
+            min-height: auto;
+        }
+        .tests {
+            width: 100%;
+            height: 100%;
+            padding-right: 10px;
+            min-height: auto;
+        }
+        /* https://bennettfeely.com/csspiechart /*/
+        .pie-chart {
+            background:
+                radial-gradient(
+                    circle closest-side,
+                    white 0,
+                    white 37.6%,
+                    transparent 37.6%,
+                    transparent 80%,
+                    white 0
+                ),
+                conic-gradient(
+                    #2cd860 0, #2cd860 88.57%,
+                    #de3f3f 0, #de3f3f 94.2800%,
+                    #fdb563 0, #fdb563 99.9900%
+            );
+            background-color: #FEFEFE;
+            position: relative;
+            width: 500px;
+            min-height: 300px;
+            margin: 0;
+        }
+        .pie-chart h2 {
+            position: absolute;
+            margin: 1rem;
+        }
+        .pie-chart figcaption {
+            position: absolute;
+            bottom: 1em;
+            right: 1em;
+            font-size: smaller;
+            text-align: right;
+        }
+        .pie-chart span:after {
+            display: inline-block;
+            content: "";
+            width: 0.8em;
+            height: 0.8em;
+            margin-left: 0.4em;
+            height: 0.8em;
+            border-radius: 0.2em;
+            background: currentColor;
+        }
+        /**/
+        h2 {
+            display: block;
+            font-size: 24px;
+        }
+        h3 {
+            display: block;
+            font-size: 22px;
+        }
+        h4 {
+            display:block;
+            font-size:16px;
+        }
+        ul {
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+        }
+        li {
+            list-style-type: none;
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
+        section, header {
+            display: block;
+        }
+        .btn {
+            width:100%;
+            text-align:left;
+        }
+        button {
+            -webkit-writing-mode: horizontal-tb !important;
+            text-rendering: auto;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: center;
+            align-items: flex-start;
+            cursor: default;
+            box-sizing: border-box;
+            margin: 0em;
+            font: 400 13.3333px Arial;
+            padding: 1px 6px;
+            border-width: 2px;
+            border-style: outset;
+            border-color: #5fb3eb;
+            border-image: initial;
+        }
+        button, select {
+            text-transform: none;
+        }
+        button, input {
+            overflow: visible;
+        }
+        button, input, optgroup, select, textarea {
+            font-family: inherit;
+            font-size: 100%;
+            line-height: 1.15;
+            margin: 0;
+        }
+        .suite--list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0
+        }
+        .suite--component {
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+            margin: 0 0 24px;
+        }
+        .suite--header {
+            border-bottom: 1px solid #CCC;
+        }
+        .suite--header-btn {
+            background: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 12px 16px;
+            text-align: left;
+            width: 100%;
+        }
+        .suite--title {
+            display: -webkit-flex;
+            display: flex;
+            font-size: 21px;
+            margin: 0;
+        }
+        .test--list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul.test--list.passed {
+            border-left: 3px solid green;
+            color: green;
+        }
+        h4.passed:before {
+            content: '\2714\0020';
+        }
+        ul.test--list.failed {
+            border-left: 3px solid red;
+            color: red;
+        }
+        h4.failed:before {
+            content: '\2718\0020';
+        }
+        ul.test--list.pending {
+            border-left: 3px solid orange;
+            color: orange;
+        }
+        h4.pending:before {
+            content: '\26AC\0020';
+        }
+        .test--component {
+            padding:4px;
+            border-bottom: 1px solid #CCC;
+        }
+        .test--title {
+            line-height: 1.5;
+            padding-top: 3px;
+            white-space: normal;
+        }
+        .test--header-btn, .test--body-wrap {
+            border-left-color: #4caf50;
+            border-left-color: var(--green500);
+        }
+        .test--header-btn {
+            display: -webkit-flex;
+            display: flex;
+            position: relative;
+            background: #fff;
+            border: none;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            padding: 10px 16px 10px 13px;
+            transition: border-color .2s ease-out;
+            width: 100%;
+            color: currentColor
+        }
+        .test--body-wrap {
+            border-left: 3px solid transparent;
+            transition: border-color .2s ease-out;
+        }
+        .test--body {
+            background-color: #FAFAFA;
+            border: 1px solid var(--grey50);
+            border-radius: 4px;
+        }
+        .test--code-snippet {
+            position: relative;
+            font-size: 11px;
+            margin: 0;
+            border-radius: 0;
+            padding: 1em;
+            background: none;
+            display: block;
+            overflow-x: auto;
+            color: 383A42;
+        }
+        details {
+            display: block;
+        }
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+                h1 Rapport des tests automatisatisés
+                h2 #{lastrun_date}
+    div.container.theme-showcase
+        .row
+            .col-md-6
+                .row.charts
+                    figure.pie-chart
+                        figcaption
+                            | Passed #{pass_percent}% 
+                            span(style="color:#2cd860")
+                            br
+                            | Failed #{fail_percent}% 
+                            span(style="color:#de3f3f")
+                            br 
+                            | Skipped #{skip_percent}% 
+                            span(style="color:#fdb563")
+            .col-md-6
+                .summary
+                    div  Exécution des tests :
+                        ul
+                            li Date / heure début : #{daterun_start}
+                            li Date / heure fin : #{daterun_end}
+                    div  OS : #{opsys}
+                    div  Nombre de cas de tests : #{run_suites}
+                    div  #{run_numerator} étapes de tests dont :
+                    ul
+                        li.Failed #{fail_numerator} échecs
+                        li.Passed #{pass_numerator} succès
+                        li.Skipped #{skip_numerator} ignorés
+        hr
+        .row
+            h2 Liste des tests en échec
+            .col-md-12
+                div#feature-overview
+                    .tests
+                        for result in results
+                            for suites in result.suites
+                                ul.suite--list
+                                    li
+                                        section.suite--component
+                                            header.suite--header
+                                                button.suite--header-btn(type="button" data-toggle="collapse" data-target="#"+suites.uuid aria-expanded="false" aria-controls=suites.uuid)
+                                                    h3.suite--title= suites.title
+                                                    h4.test--title= result.file
+                                            .suite--body(id=suites.uuid)
+                                                for test in suites.tests
+                                                    ul.test--list(class=test.state)
+                                                        li.test--component
+                                                            header
+                                                                - var expandedValue = ''
+                                                                if test.state=="failed" 
+                                                                    - var expandedValue = 'open'
+
+                                                                <details #{expandedValue}>
+                                                                    summary(role="button" tabindex="0")
+                                                                        span.test--title(class=test.state)= test.title
+                                                                    .test--body-wrap
+                                                                        .test--body
+                                                                            pre
+                                                                                code.test--code-snippet= test.code
+                                                                            span Erreur :
+                                                                            pre
+                                                                                code.test--code-snippet= test.err.message

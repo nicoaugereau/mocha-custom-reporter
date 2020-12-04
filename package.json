@@ -1,15 +1,28 @@
 {
   "name": "mocha-custom-reporter",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Merge several Mochawesome JSON reports and generate html report",
+  "main": "lib/index.js",
+  "bin": {
+    "mocha-custom-reporter": "bin/mocha-custom-reporter.js"
+  },
+  "repository": "git@github.com:nicoaugereau/mocha-custom-reporter.git",
+  "author": "Nicolas Augereau",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "fs-extra": "^9.0.1",
+    "glob": "^7.1.6",
+    "path": "^0.12.7",
     "pug": "^3.0.0"
+  },
+  "release": {
+    "branch": "master"
   }
 }
