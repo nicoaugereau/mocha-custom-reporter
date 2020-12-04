@@ -66,20 +66,6 @@ html(lang='en')
         }
         /* https://bennettfeely.com/csspiechart /*/
         .pie-chart {
-            background:
-                radial-gradient(
-                    circle closest-side,
-                    white 0,
-                    white 37.6%,
-                    transparent 37.6%,
-                    transparent 80%,
-                    white 0
-                ),
-                conic-gradient(
-                    {{chart_passed}}
-                    {{chart_failed}}
-                    {{chart_skipped}}
-            );
             background-color: #FEFEFE;
             position: relative;
             width: 500px;
@@ -286,7 +272,7 @@ html(lang='en')
         .row
             .col-md-6
                 .row.charts
-                    figure.pie-chart
+                    figure.pie-chart(style='background:radial-gradient(circle closest-side,white 0,white 37.6%,transparent 37.6%,transparent 80%,white 0),conic-gradient('+chart_passed+chart_failed+chart_skipped+');')
                         figcaption
                             | Passed #{pass_percent}% 
                             span(style="color:#2cd860")
@@ -315,6 +301,8 @@ html(lang='en')
             .col-md-12
                 div#feature-overview
                     .tests
+                        if results==''
+                            span Pas de tests en échec
                         for result in results
                             for suites in result.suites
                                 ul.suite--list
@@ -340,6 +328,7 @@ html(lang='en')
                                                                         .test--body
                                                                             pre
                                                                                 code.test--code-snippet= test.code
-                                                                            span Erreur :
+                                                                            if test.err.message
+                                                                                span Erreur :
                                                                             pre
                                                                                 code.test--code-snippet= test.err.message
