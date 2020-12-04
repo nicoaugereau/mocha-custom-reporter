@@ -2,7 +2,6 @@ doctype html
 html(lang='en')
   head
     meta(charset="utf-8")
-    meta(http-equiv="refresh" content="5")
     title Rapport de tests
     link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous')
     style.
@@ -17,12 +16,10 @@ html(lang='en')
             font-size: 14px;
             background-color: #FEFEFE;
         }
-
         .navbar {
             background-color: #696969;
             color: white;
         }
-
         .header {
             margin-bottom: 25px;
             position: relative;
@@ -30,29 +27,24 @@ html(lang='en')
             color: white;
             background-color: #3573B0;
         }
-
         .header::after {
             content: "";
             clear: both;
             display: table;
         }
-
         .logo {
             flex: 0;
         }
-
         .summary {
             flex: 1;
             font-size: 16px;
             padding: 8px 12px;
             vertical-align: top;
         }
-
         .summary-count {
             font-weight: bold;
             font-size: 24px;
         }
-
         .main {
             display: flex;
             width: 100%;
@@ -60,21 +52,18 @@ html(lang='en')
             padding-left: 10px;
             padding-right: 10px;
         }
-
         .charts {
             margin:0px;
             padding:0px;
             height: 100%;
             min-height: auto;
         }
-
         .tests {
             width: 100%;
             height: 100%;
             padding-right: 10px;
             min-height: auto;
         }
-
         /* https://bennettfeely.com/csspiechart /*/
         .pie-chart {
             background:
@@ -322,7 +311,7 @@ html(lang='en')
                         li.Skipped #{skip_numerator} ignorés
         hr
         .row
-            h2 Liste des tests
+            h2 Liste des tests en échec
             .col-md-12
                 div#feature-overview
                     .tests
@@ -351,3 +340,6 @@ html(lang='en')
                                                                         .test--body
                                                                             pre
                                                                                 code.test--code-snippet= test.code
+                                                                            span Erreur :
+                                                                            pre
+                                                                                code.test--code-snippet= test.err.message
