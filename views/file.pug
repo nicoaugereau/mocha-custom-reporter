@@ -147,6 +147,31 @@ html(lang='en')
         section, header {
             display: block;
         }
+        .btn {
+            width:100%;
+            text-align:left;
+        }
+        button {
+            -webkit-writing-mode: horizontal-tb !important;
+            text-rendering: auto;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: center;
+            align-items: flex-start;
+            cursor: default;
+            box-sizing: border-box;
+            margin: 0em;
+            font: 400 13.3333px Arial;
+            padding: 1px 6px;
+            border-width: 2px;
+            border-style: outset;
+            border-color: #5fb3eb;
+            border-image: initial;
+        }
         button, select {
             text-transform: none;
         }
@@ -195,7 +220,6 @@ html(lang='en')
             color: green;
         }
         h4.passed:before {
-            padding: 0 12px 0 12px;
             content: '\2714\0020';
         }
         ul.test--list.failed {
@@ -203,15 +227,13 @@ html(lang='en')
             color: red;
         }
         h4.failed:before {
-            padding: 0 12px 0 12px;
             content: '\2718\0020';
         }
-        ul li.skipped:before {
+        ul.test--list.pending {
             border-left: 3px solid orange;
             color: orange;
         }
-        h4.skipped:before {
-            padding: 0 12px 0 12px;
+        h4.pending:before {
             content: '\26AC\0020';
         }
         .test--component {
@@ -226,6 +248,21 @@ html(lang='en')
         .test--header-btn, .test--body-wrap {
             border-left-color: #4caf50;
             border-left-color: var(--green500);
+        }
+        .test--header-btn {
+            display: -webkit-flex;
+            display: flex;
+            position: relative;
+            background: #fff;
+            border: none;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            padding: 10px 16px 10px 13px;
+            transition: border-color .2s ease-out;
+            width: 100%;
+            color: currentColor
         }
         .test--body-wrap {
             border-left: 3px solid transparent;
@@ -246,6 +283,9 @@ html(lang='en')
             display: block;
             overflow-x: auto;
             color: 383A42;
+        }
+        details {
+            display: block;
         }
   body
     nav.navbar.navbar-inverse.navbar-fixed-top
@@ -292,17 +332,22 @@ html(lang='en')
                                     li
                                         section.suite--component
                                             header.suite--header
-                                                button.suite--header-btn(aria-expanded='true', type='button')
+                                                button.suite--header-btn(type="button" data-toggle="collapse" data-target="#"+suites.uuid aria-expanded="false" aria-controls=suites.uuid)
                                                     h3.suite--title= suites.title
                                                     h4.test--title= result.file
-                                            .suite--body
+                                            .suite--body(id=suites.uuid)
                                                 for test in suites.tests
                                                     ul.test--list(class=test.state)
                                                         li.test--component
                                                             header
-                                                                button.test--header-btn(aria-expanded='false', type='button')
-                                                                h4(class=test.state).test--title= test.title
-                                                            .test--body-wrap
-                                                                .test--body
-                                                                    pre
-                                                                        code.test--code-snippet= test.code
+                                                                - var expandedValue = ''
+                                                                if test.state=="failed" 
+                                                                    - var expandedValue = 'open'
+
+                                                                <details #{expandedValue}>
+                                                                    summary(role="button" tabindex="0")
+                                                                        span.test--title(class=test.state)= test.title
+                                                                    .test--body-wrap
+                                                                        .test--body
+                                                                            pre
+                                                                                code.test--code-snippet= test.code
