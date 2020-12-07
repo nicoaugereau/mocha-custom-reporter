@@ -82,12 +82,11 @@ Then, write your custom script to run `cypress` together with `mochawesome-merge
 
 ```javascript
 const cypress = require('cypress')
-const marge = require('mochawesome-report-generator')
-const { merge } = require('mochawesome-merge')
+const { merge } = require('mocha-custom-reporter')
 
 cypress.run().then(
   () => {
-    generateReport()
+    generateReport(options)
   },
   error => {
     generateReport()
@@ -96,7 +95,7 @@ cypress.run().then(
   }
 )
 
-function generateReport(options) {
-  return merge(options).then(report => marge.create(report, options))
+function generateReport() {
+  return merge()
 }
 ```
