@@ -17,7 +17,7 @@ html(lang='en')
         .row
             .col-md-6
                 .row.charts
-                    figure.pie-chart(style='background:radial-gradient(circle closest-side,white 0,white 37.6%,transparent 37.6%,transparent 80%,white 0),conic-gradient('+chart_passed+chart_failed+chart_skipped+chart_pending+');')
+                    figure.pie-chart(style='background:radial-gradient(circle closest-side,white 0,white 37.6%,transparent 37.6%,transparent 80%,white 0),conic-gradient('+chart_passed+chart_failed+chart_pending+chart_skipped+');')
                         figcaption
                             | Succès #{pass_percent}% 
                             span(style="color:#2cd860")
@@ -25,10 +25,10 @@ html(lang='en')
                             | Echecs #{fail_percent}% 
                             span(style="color:#de3f3f")
                             br 
-                            | Ignorés #{skip_percent}% 
+                            | Non exécutés #{pending_percent}% 
                             span(style="color:#fdb563")
                             br 
-                            | Non exécutés #{pending_percent}% 
+                            | Ignorés #{skip_percent}% 
                             span(style="color:#666")
             .col-md-6
                 .summary
@@ -42,8 +42,8 @@ html(lang='en')
                     ul
                         li.Passed #{pass_numerator} succès
                         li.Failed #{fail_numerator} échecs
-                        li.Skipped #{skip_numerator} ignorés
                         li.Pending #{pending_numerator} non exécutés
+                        li.Skipped #{skip_numerator} ignorés
         hr
         .row
             h2 Liste des tests en échec
