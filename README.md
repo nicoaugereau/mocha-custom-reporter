@@ -7,7 +7,7 @@ Merge several [Mochawesome](https://github.com/adamgruber/mochawesome) JSON repo
 via `npm`:
 
 ```
-$ npm install mocha-custom-repoeter --save-dev
+$ npm install mocha-custom-reporter --save-dev
 ```
 
 ## Examples
