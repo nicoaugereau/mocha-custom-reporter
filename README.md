@@ -33,13 +33,13 @@ merge(options)
 ### CLI
 
 ```
-$ npx mocha-custom-report -f ./report/*.json -r report/mocha-custom-reporter -i failedOnly
+$ npx mocha-custom-reporter -f ./report/*.json -r report/mocha-custom-reporter -i failedOnly
 ```
 
 You can specify as many paths as you wish:
 
 ```
-$ npx mochawesome-merge -f ./report/*.json ./mochawesome-report/*.json r report/mocha-custom-reporter
+$ npx mocha-custom-reporter -f ./report/*.json ./mochawesome-report/*.json r report/mocha-custom-reporter
 ```
 
 ### Params
@@ -53,7 +53,7 @@ $ npx mochawesome-merge -f ./report/*.json ./mochawesome-report/*.json r report/
 - Defaults to `stdout`.
 #
 - `infos`: `summary`, `failedOny` (with summary), or full report.
-- Aliases: `-ri| --infos`
+- Aliases: `-i| --infos`
 - Defaults to full report`.
 
 
@@ -65,7 +65,7 @@ Since the version `3.0.0`, Cypress runs every spec separately, which leads to ge
 
 First, configure `cypress.json`:
 
-```jsonc
+```json
 {
   // use mochawesome reporter as usually
   "reporter": "mocha-custom-reporter",
