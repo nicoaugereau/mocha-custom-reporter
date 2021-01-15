@@ -51,11 +51,11 @@ html(lang='en')
                         li.Skipped #{skip_numerator} skipped
         hr
         .row
-            h2 Tests list
+            h2 #{testsListLabel}
             .col-md-12
                 div#feature-overview
                     .tests
-                        if fail_numerator==0
+                        if (infos=='failedOnly' && fail_numerator==0)
                             span No failed tests
                         for result in results
                             for suites in result.suites
