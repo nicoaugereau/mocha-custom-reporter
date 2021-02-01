@@ -6,7 +6,17 @@
   "bin": {
     "mocha-custom-reporter": "bin/mocha-custom-reporter.js"
   },
-  "repository": "git@github.com:nicoaugereau/mocha-custom-reporter.git",
+  "homepage": "https://github.com/nicoaugereau/mocha-custom-reporter#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicoaugereau/mocha-custom-reporter.git"
+  },
+  "release": {
+    "branch": "master"
+  },
+  "bugs": {
+    "url": "https://github.com/nicoaugereau/mocha-custom-reporter/issues"
+  },
   "author": "Nicolas Augereau",
   "license": "MIT",
   "engines": {
@@ -21,8 +31,5 @@
     "glob": "^7.1.6",
     "path": "^0.12.7",
     "pug": "^3.0.0"
-  },
-  "release": {
-    "branch": "master"
   }
 }
