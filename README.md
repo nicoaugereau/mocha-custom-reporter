@@ -84,9 +84,19 @@ Then, write your custom script to run `cypress` together with `mochawesome-merge
 const cypress = require('cypress')
 const { merge } = require('mocha-custom-reporter')
 
+/* 
+You can add cypress.json file to constant :
+const { reporterOptions } = require('./cypress.json')
+
+or add reporterOptions constant :
+const reporterOptions = {
+  "reportDir": "mocha/mochareports/",
+  "infos": "summary"
+}
+*/
 cypress.run().then(
   () => {
-    generateReport(options)
+    generateReport(reporterOptions)
   },
   error => {
     generateReport()
@@ -95,7 +105,7 @@ cypress.run().then(
   }
 )
 
-function generateReport() {
-  return merge()
+function generateReport(reporterOptions) {
+  return merge(reporterOptions)
 }
 ```
